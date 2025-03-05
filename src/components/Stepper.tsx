@@ -2,21 +2,23 @@ import { Card } from "@/components/ui/card";
 import React, { Dispatch, SetStateAction } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { useStepper } from "./StepperContext";
 
-type Props = {
-  steps: { name: string; bio: string }[];
-  currentStep: number;
-  setCurrentStep: Dispatch<SetStateAction<number>>;
-};
+const Stepper = () => {
+  const { steps, setCurrentStep, currentStep } = useStepper();
 
-const Stepper = ({ steps, currentStep, setCurrentStep }: Props) => {
   return steps.map((step, index) => {
     return (
       <>
         <div
           key={index}
-          className={cn("flex flex-col gap-1 cursor-pointer p-2 shadow-none", currentStep < index && "cursor-not-allowed")}
-          onClick={() => currentStep >= index && currentStep !== 0 && setCurrentStep(index - 1)}
+          className={cn(
+            "flex flex-col gap-1 cursor-pointer p-2 shadow-none",
+            currentStep < index && "cursor-not-allowed"
+          )}
+          onClick={() =>
+            currentStep >= index && currentStep !== 0 && setCurrentStep(index)
+          }
         >
           <span
             className={cn(
@@ -40,7 +42,7 @@ const Stepper = ({ steps, currentStep, setCurrentStep }: Props) => {
               ease: "easeInOut",
               delay: currentStep > index ? 0.1 * index : 0,
             }}
-            className={`h-6 w-1 ml-5 rounded-md ${
+            className={`h-6 w-0.5 ml-5 rounded-md ${
               currentStep > index ? "bg-primary" : "bg-gray-200"
             }`}
           />
@@ -50,36 +52,4 @@ const Stepper = ({ steps, currentStep, setCurrentStep }: Props) => {
   });
 };
 
-type StepperProps = {
-  steps: { name: string; bio: string }[];
-};
-
-type StepperReturnType = {
-  JSX: React.ReactNode;
-  prev: () => void;
-  next: () => void;
-  currentStep: number;
-  setCurrentStep: Dispatch<SetStateAction<number>>;
-};
-
-const useCustomStepper = ({ steps }: StepperProps): StepperReturnType => {
-  const [currentStep, setCurrentStep] = React.useState(0);
-
-  const next = () => {
-    setCurrentStep((prev) => prev + 1);
-  };
-
-  const prev = () => {
-    setCurrentStep((prev) => prev - 1);
-  };
-
-  return {
-    JSX: <Stepper {...{ steps, currentStep, setCurrentStep }} />,
-    prev,
-    next,
-    currentStep,
-    setCurrentStep,
-  };
-};
-
-export default useCustomStepper;
+export default Stepper;

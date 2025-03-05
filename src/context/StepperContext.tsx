@@ -19,7 +19,7 @@ type StepperContextType = {
   steps: Step[];
 };
 
-const StepperContext = createContext<StepperContextType | undefined>(undefined);
+export const StepperContext = createContext<StepperContextType | undefined>(undefined);
 
 export const StepperProvider = ({
   children,
@@ -44,10 +44,3 @@ export const StepperProvider = ({
   );
 };
 
-export const useStepper = () => {
-  const context = useContext(StepperContext);
-  if (!context) {
-    throw new Error("useStepper must be used within a StepperProvider");
-  }
-  return context;
-};

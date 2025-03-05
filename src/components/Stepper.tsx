@@ -2,7 +2,7 @@ import { Card } from "@/components/ui/card";
 import React, { Dispatch, SetStateAction } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { useStepper } from "./StepperContext";
+import { useStepper } from "@/hooks/useStepper";
 
 const Stepper = () => {
   const { steps, setCurrentStep, currentStep } = useStepper();
@@ -23,7 +23,7 @@ const Stepper = () => {
           <span
             className={cn(
               "leading-5",
-              currentStep < index ? "text-gray-500" : "font-semibold"
+              currentStep < index ? "text-gray-500" : "font-medium"
             )}
           >
             {step.name}

@@ -1,9 +1,22 @@
-import React from 'react'
+"use client";
 
-const page = () => {
+import Steps from "@/components/global/request/components/Steps";
+import { useSidebar } from "@/components/ui/sidebar";
+import React, { useEffect } from "react";
+
+const Request = () => {
+  const { setOpen } = useSidebar();
+
+  useEffect(() => {
+    setOpen(false);
+  }, []);
+
   return (
-    <div>page</div>
-  )
-}
+    <div className="flex flex-1 w-full">
+      <Steps />
+      <div className="flex-1 p-3">form</div>
+    </div>
+  );
+};
 
-export default page
+export default Request;

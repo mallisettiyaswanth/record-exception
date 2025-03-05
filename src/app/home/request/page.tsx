@@ -42,7 +42,7 @@ const Request = () => {
         <div className="w-64 border-r bg-gray-50 p-3 py-20 flex flex-col">
           <Stepper />
         </div>
-        <div className="flex-1 p-10">
+        <div className="flex-1 p-20 py-24">
           <RequestForm />
         </div>
       </div>

@@ -9,7 +9,7 @@ const Layout = ({ children }: Props) => {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <SidebarInset>{children}</SidebarInset>
+      <SidebarInset className="bg-gray-100">{children}</SidebarInset>
     </SidebarProvider>
   );
 };

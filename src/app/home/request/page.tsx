@@ -8,6 +8,7 @@ import React, { useEffect } from "react";
 
 const Request = () => {
   const { setOpen, ...props } = useSidebar();
+  
 
   useEffect(() => {
     setOpen(false);
@@ -38,11 +39,14 @@ const Request = () => {
 
   return (
     <StepperProvider steps={steps}>
-      <div className="flex flex-1 w-full">
-        <div className="w-64 border-r bg-gray-50 p-3 py-20 flex flex-col">
+      <div className="flex w-full h-screen overflow-hidden">
+        {/* Sidebar (Fixed) */}
+        <div className="w-64 h-screen border-r bg-gray-50 p-3 py-20 fixed">
           <Stepper />
         </div>
-        <div className="flex-1 p-20 py-24">
+
+        {/* Content Section (Scrollable) */}
+        <div className="flex-1 h-screen overflow-auto ml-64 p-20 py-24">
           <RequestForm />
         </div>
       </div>

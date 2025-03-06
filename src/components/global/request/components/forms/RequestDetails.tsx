@@ -27,8 +27,10 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 import { Check, ChevronsUpDown } from "lucide-react";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useFormContext } from "react-hook-form";
+import TailwindAdvancedEditor from "@/components/global/novel";
+import { useStepper } from "@/hooks/useStepper";
 
 type Props = {};
 
@@ -65,9 +67,23 @@ const RequestDetails = (props: Props) => {
     },
   ] as const;
   const editorRef = useRef(null);
-  const [content, setContent] = useState<JSONContent | undefined>(undefined);
+  const [content, setContent] = useState<string>("");
+  const { next } = useStepper();
+
+  const handleClick = async () => {
+    if (!content) {
+      form.setError("letter", {
+        type: "manual",
+        message: "Letter Description is required",
+      });
+    }
+    console.log(form.formState.errors);
+    const isValid = await form.trigger();
+    if (isValid) next();
+  };
+
   return (
-    <div className="flex flex-col gap-6 relative">
+    <div className="flex flex-col gap-6 relative pb-24">
       <FormField
         control={form.control}
         name="title"
@@ -78,6 +94,7 @@ const RequestDetails = (props: Props) => {
               <FormControl>
                 <Input {...field} placeholder="title" />
               </FormControl>
+              <FormMessage />
             </FormItem>
           );
         }}
@@ -173,16 +190,26 @@ const RequestDetails = (props: Props) => {
           </FormItem>
         )}
       />
-      {/* <CustomMdxEditor editorRef={editorRef} markdown="" /> */}
-      {/* <EditorRoot>
-        <EditorContent
-          initialContent={content}
-          onUpdate={({ editor }) => {
-            const json = editor.getJSON();
-            setContent(json);
-          }}
-        />
-      </EditorRoot> */}
+      <FormField
+        control={form.control}
+        name="letter"
+        render={({ field }) => {
+          return (
+            <FormItem className="flex flex-col">
+              <FormLabel>Description</FormLabel>
+              <FormControl>
+                <TailwindAdvancedEditor
+                  {...{ content, setContent, onChange: field.onChange }}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          );
+        }}
+      />
+      <div className="w-full flex justify-end">
+        <Button onClick={handleClick}>Continue</Button>
+      </div>
     </div>
   );
 };

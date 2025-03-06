@@ -29,7 +29,7 @@ const StepperForm = ({ currentStep }: { currentStep: number }) => {
 };
 
 const permission_schema = z.object({
-  title: z.string().min(3, "Title is required"),
+  title: z.string().min(1, "Title is required"),
   type: z.enum(["leave", "attendance"]),
   holder: z.enum(["individual", "group"]),
   students: z
@@ -47,7 +47,7 @@ const permission_schema = z.object({
   from_date: z.date(),
   to_date: z.date(),
   reason: z.string().min(1, "Reason for request is required"),
-  description: z.string().optional(),
+  letter: z.string(),
   attachments: z.any().optional(),
   section: z.string().min(1, "Section is required"),
   department: z.string().min(1, "Department is required"),
@@ -69,8 +69,40 @@ const permission_schema = z.object({
 const RequestForm = (props: Props) => {
   const { currentStep } = useStepper();
 
+  const getStepSchema = (step: number) => {
+    const stepWiseSchema = [
+      ["title", "reason", "letter", "type"],
+      ["holder", "students", "from_date", "to_date"],
+      ["faculty"],
+      ["contact", "class_representative_contact", "department", "section"],
+    ] as const;
+
+    return permission_schema.pick(
+      stepWiseSchema[step].reduce((acc, key) => {
+        acc[key] = true;
+        return acc;
+      }, {} as Record<(typeof stepWiseSchema)[number][number], true>)
+    );
+  };
+
   const form = useForm({
-    resolver: zodResolver(permission_schema),
+    resolver: zodResolver(getStepSchema(currentStep)),
+    mode: "onBlur",
+    defaultValues: {
+      title: "",
+      reason: "",
+      letter: "",
+      type: "leave" as "leave" | "attendance",
+      holder: "individual" as "individual" | "group",
+      students: [{ name: "", reg_no: "" }],
+      from_date: new Date(),
+      to_date: new Date(),
+      faculty: { name: "", email: "" },
+      contact: { phone: "", email: "" },
+      class_representative_contact: "",
+      department: "",
+      section: "",
+    },
   });
 
   return (

@@ -1,8 +1,6 @@
 "use client";
 
-import { ForwardRefEditor } from "@/components/global/mdx/ForwardRefEditor";
-import CustomMdxEditor from "@/components/global/mdx/InitializedMDXEditor";
-import MdxEditor from "@/components/global/mdx/InitializedMDXEditor";
+import { EditorRoot, EditorContent, JSONContent } from "novel";
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -29,7 +27,7 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 import { Check, ChevronsUpDown } from "lucide-react";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useFormContext } from "react-hook-form";
 
 type Props = {};
@@ -67,6 +65,7 @@ const RequestDetails = (props: Props) => {
     },
   ] as const;
   const editorRef = useRef(null);
+  const [content, setContent] = useState<JSONContent | undefined>(undefined);
   return (
     <div className="flex flex-col gap-6 relative">
       <FormField
@@ -174,7 +173,16 @@ const RequestDetails = (props: Props) => {
           </FormItem>
         )}
       />
-      <CustomMdxEditor editorRef={editorRef} markdown="" />
+      {/* <CustomMdxEditor editorRef={editorRef} markdown="" /> */}
+      {/* <EditorRoot>
+        <EditorContent
+          initialContent={content}
+          onUpdate={({ editor }) => {
+            const json = editor.getJSON();
+            setContent(json);
+          }}
+        />
+      </EditorRoot> */}
     </div>
   );
 };

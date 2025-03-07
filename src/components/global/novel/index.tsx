@@ -38,9 +38,9 @@ const TailwindAdvancedEditor = ({
   setContent,
   onChange,
 }: {
-  content: string;
-  setContent: (content: string) => void;
-  onChange: (content: string) => void;
+  content: JSONContent | undefined;
+  setContent: (content: JSONContent) => void;
+  onChange: (content: JSONContent) => void;
 }) => {
   const { editor } = useEditor();
   const [charsCount, setCharsCount] = useState();
@@ -102,6 +102,7 @@ const TailwindAdvancedEditor = ({
       </div>
       <EditorRoot>
         <EditorContent
+          initialContent={content}
           extensions={extensions}
           className="relative min-h-[500px] p-3 w-full max-w-screen-lg border bg-background sm:rounded-md sm:border shadow-sm"
           editorProps={{

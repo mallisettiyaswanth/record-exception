@@ -67,7 +67,7 @@ const RequestDetails = (props: Props) => {
     },
   ] as const;
   const editorRef = useRef(null);
-  const [content, setContent] = useState<string>("");
+  const [content, setContent] = useState<JSONContent | undefined>(undefined);
   const { next } = useStepper();
 
   const handleClick = async () => {
@@ -78,9 +78,14 @@ const RequestDetails = (props: Props) => {
       });
     }
     console.log(form.formState.errors);
+
     const isValid = await form.trigger();
     if (isValid) next();
   };
+
+  useEffect(() => {
+    setContent(form.getValues("letter"));
+  }, []);
 
   return (
     <div className="flex flex-col gap-6 relative pb-24">

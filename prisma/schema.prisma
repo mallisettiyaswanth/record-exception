@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,7 +7,64 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum USER_ROLE {
+  STUDENT
+  FACULTY
+  HOD
+}
+
+enum PERMISSION_TYPE {
+  LEAVE
+  ATTENDANCE
+}
+
+enum PERMISSION_HOLDER {
+  GROUP
+  INDIVIDUAL
+}
 
 model Users {
-  id  String @id @default(cuid())
+  id          String  @id @default(cuid())
+  email       String  @unique
+  name        String
+  reg_number  String  @unique
+  department  String
+  section     String
+  role        USER_ROLE
+  created_at  DateTime @default(now())
+  attendance_percentage Float @default(0)
+
+  permissions PermissionsOnUsers[]
+
+  @@map("users")
+}
+
+model Permissions {
+  id          String @id @default(cuid())
+  title       String
+  reason      String
+  type        PERMISSION_TYPE
+  holder      PERMISSION_HOLDER
+  attachments String? 
+  from_date   DateTime
+  to_date     DateTime
+  is_approved Boolean @default(false)
+  applicant_role USER_ROLE
+  created_at  DateTime @default(now())
+
+  users PermissionsOnUsers[]
+
+  @@map("permissions")
+}
+
+model PermissionsOnUsers {
+  id            String  @id @default(cuid())
+  user          Users   @relation(fields: [userId], references: [id])
+  userId        String
+  permission    Permissions @relation(fields: [permissionId], references: [id])
+  permissionId  String
+  approved_by_faculty Boolean @default(false)
+  approved_by_hod Boolean @default(false)
+
+  @@map("permissions_on_users")
 }

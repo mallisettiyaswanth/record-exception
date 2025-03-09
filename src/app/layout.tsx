@@ -3,6 +3,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import localFont from "next/font/local";
 import { Toaster } from "sonner";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const geist_sans = localFont({
   src: "./../../public/geist_sans.woff2",
@@ -19,11 +20,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={cn(geist_sans.className)}>
-        <Toaster position="top-center" richColors />
-        {children}
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={cn(geist_sans.className)}>
+          <Toaster position="top-center" richColors />
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

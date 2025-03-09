@@ -68,7 +68,7 @@ const RequestDetails = (props: Props) => {
   ] as const;
   const editorRef = useRef(null);
   const [content, setContent] = useState<JSONContent | undefined>(undefined);
-  const { next } = useStepper();
+  const { next, setCurrentStep } = useStepper();
 
   const handleClick = async () => {
     if (!content) {
@@ -77,7 +77,6 @@ const RequestDetails = (props: Props) => {
         message: "Letter Description is required",
       });
     }
-    console.log(form.formState.errors);
 
     const isValid = await form.trigger();
     if (isValid) next();

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import localFont from "next/font/local";
+import { Toaster } from "sonner";
 
 const geist_sans = localFont({
   src: "./../../public/geist_sans.woff2",
@@ -19,7 +20,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={cn(geist_sans.className)}>{children}</body>
+      <body className={cn(geist_sans.className)}>
+        <Toaster position="top-center" richColors />
+        {children}
+      </body>
     </html>
   );
 }

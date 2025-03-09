@@ -39,8 +39,6 @@ const permission_schema = z.object({
         reg_no: z.string().min(1, "Registration number is required"),
         attendance_percentage: z.string().optional(),
         date_range: z.tuple([z.date(), z.date()]).optional(),
-        individual_from_date: z.date().optional(),
-        individual_to_date: z.date().optional(),
       })
     )
     .min(1, "At least one student is required for individual or group holder"),
@@ -67,7 +65,7 @@ const permission_schema = z.object({
 });
 
 const RequestForm = (props: Props) => {
-  const { currentStep } = useStepper();
+  const { currentStep, setCurrentStep } = useStepper();
 
   const getStepSchema = (step: number) => {
     const stepWiseSchema = [
@@ -84,6 +82,8 @@ const RequestForm = (props: Props) => {
       }, {} as Record<(typeof stepWiseSchema)[number][number], true>)
     );
   };
+
+  setCurrentStep(2);
 
   const form = useForm({
     resolver: zodResolver(getStepSchema(currentStep)),

@@ -87,6 +87,13 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+    --first-color: 18, 113, 255;
+    --second-color: 74, 144, 255;
+    --third-color: 100, 220, 255;
+    --fourth-color: 200, 50, 50;
+    --fifth-color: 180, 180, 50;
+    --size: 140%;
+    --blending-value: hard-light;
   }
 
   .dark {

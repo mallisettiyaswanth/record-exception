@@ -15,6 +15,11 @@ const SignInPage = (props: Props) => {
 
   const handleGoogleLogin = async () => {
     try {
+      await signIn?.authenticateWithRedirect({
+        strategy: "oauth_google",
+        redirectUrl: "/sign-in",
+        redirectUrlComplete: "/",
+      });
     } catch (err) {
       console.log(err);
       toast.error("error Loggin in");
@@ -23,7 +28,21 @@ const SignInPage = (props: Props) => {
 
   return (
     <div className="flex min-h-screen w-full">
-      <GridBackgroundDemo>SignIn</GridBackgroundDemo>
+      <div className="flex w-7/12 relative text-white overflow-hidden">
+        <GridBackgroundDemo className="flex-1" />
+        {/* <SiMaildotru className="opacity-20 absolute h-96 w-96 -bottom-24 -right-20 -rotate-45" /> */}
+        <div className="w-full h-full flex p-5 flex-col">
+          <div className="flex flex-col gap-5 w-full h-fit p-8 py-16">
+            <h1 className="text-7xl font-semibold w-2/3">
+              Permission Manager.
+            </h1>
+            <p className="text-white/50 w-2/5">
+              Make your permission management easier with us.
+            </p>
+          </div>
+          <div className="w-full h-full"></div>
+        </div>
+      </div>
       <div className="w-5/12 flex flex-col p-8">
         {!isLoaded ? (
           <div className="w-full h-full flex items-center justify-center">

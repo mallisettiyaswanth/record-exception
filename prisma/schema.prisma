@@ -68,3 +68,4 @@ model PermissionsOnUsers {
 
   @@map("permissions_on_users")
 }
+

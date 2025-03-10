@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import localFont from "next/font/local";
 import { Toaster } from "sonner";
 import { ClerkProvider } from "@clerk/nextjs";
+import { ThemeProvider } from "@/provider/theme-provider";
 
 const geist_sans = localFont({
   src: "./../../public/geist_sans.woff2",
@@ -21,10 +22,10 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en">
+      <html lang="en" suppressHydrationWarning>
         <body className={cn(geist_sans.className)}>
           <Toaster position="top-center" richColors />
-          {children}
+          <ThemeProvider>{children}</ThemeProvider>
         </body>
       </html>
     </ClerkProvider>

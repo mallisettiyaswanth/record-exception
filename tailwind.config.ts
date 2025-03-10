@@ -106,6 +106,7 @@ const config: Config = {
   },
   plugins: [
     require("tailwindcss-animate"),
+    require("tailwindcss-no-scrollbar"),
     function ({ matchUtilities, theme }: any) {
       matchUtilities(
         {

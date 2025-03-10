@@ -1,74 +1,56 @@
-"use client"
+"use client";
 
-import { ChevronRight, type LucideIcon } from "lucide-react"
-
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible"
+import { type LucideIcon } from "lucide-react";
 import {
   SidebarGroup,
-  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
+import { usePathname, useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 export function NavMain({
   items,
 }: {
   items: {
-    title: string
-    url: string
-    icon?: LucideIcon
-    isActive?: boolean
+    title: string;
+    url: string;
+    icon?: LucideIcon;
+    isActive?: boolean;
     items?: {
-      title: string
-      url: string
-    }[]
-  }[]
+      title: string;
+      url: string;
+    }[];
+  }[];
 }) {
+  const navigate = useRouter();
+  const pathName = usePathname();
+
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>Platform</SidebarGroupLabel>
-      <SidebarMenu>
-        {items.map((item) => (
-          <Collapsible
-            key={item.title}
-            asChild
-            defaultOpen={item.isActive}
-            className="group/collapsible"
+      <SidebarMenu className="gap-2">
+        {items.map((item, index: number) => (
+          <SidebarMenuItem
+            key={index}
+            className="h-12 flex items-center justify-center"
           >
-            <SidebarMenuItem>
-              <CollapsibleTrigger asChild>
-                <SidebarMenuButton
-                  tooltip={item.title}
-                  className="hover:bg-primary/70 hover:text-white"
-                >
-                  {item.icon && <item.icon />}
-                  <span>{item.title}</span>
-                  <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-                </SidebarMenuButton>
-              </CollapsibleTrigger>
-              <CollapsibleContent>
-                <SidebarMenuSub>
-                  {item.items?.map((subItem) => (
-                    <SidebarMenuSubItem key={subItem.title}>
-                      <SidebarMenuSubButton asChild>
-                        <a href={subItem.url}>
-                          <span>{subItem.title}</span>
-                        </a>
-                      </SidebarMenuSubButton>
-                    </SidebarMenuSubItem>
-                  ))}
-                </SidebarMenuSub>
-              </CollapsibleContent>
-            </SidebarMenuItem>
-          </Collapsible>
+            <SidebarMenuButton
+              onClick={() => {
+                navigate.push(item.url);
+              }}
+              tooltip={item.title}
+              className={cn(
+                "hover:ring transition-colors rounded-xl active:bg-primary/50 active:text-white bg-white",
+                pathName === item.url &&
+                  "bg-primary text-white ring-1 ring-inset",
+                "h-full w-full"
+              )}
+            >
+              {item.icon && <item.icon />}
+              <span>{item.title}</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
         ))}
       </SidebarMenu>
     </SidebarGroup>

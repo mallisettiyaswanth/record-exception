@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card";
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, Fragment, SetStateAction } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useStepper } from "@/hooks/useStepper";
@@ -9,7 +9,7 @@ const Stepper = () => {
 
   return steps.map((step, index) => {
     return (
-      <>
+      <Fragment key={index}>
         <div
           key={index}
           className={cn(
@@ -48,7 +48,7 @@ const Stepper = () => {
             key={`line-${index}`}
           />
         )}
-      </>
+      </Fragment>
     );
   });
 };

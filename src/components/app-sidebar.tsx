@@ -2,180 +2,103 @@
 
 import * as React from "react";
 import {
-  AudioWaveform,
-  BookOpen,
-  Bot,
-  Command,
-  Frame,
-  GalleryVerticalEnd,
-  Map,
-  PieChart,
+  File,
+  Info,
+  LayoutDashboard,
+  Megaphone,
+  Plus,
   Settings2,
-  SquareTerminal,
 } from "lucide-react";
-
 import { NavMain } from "@/components/nav-main";
-import { NavProjects } from "@/components/nav-projects";
 import { NavUser } from "@/components/nav-user";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
+  SidebarMenuButton,
   SidebarRail,
   SidebarTrigger,
   useSidebar,
 } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
-
-// This is sample data.
-const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-  teams: [
-    {
-      name: "Acme Inc",
-      logo: GalleryVerticalEnd,
-      plan: "Enterprise",
-    },
-    {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
-    },
-  ],
-  navMain: [
-    {
-      title: "Playground",
-      url: "#",
-      icon: SquareTerminal,
-      isActive: true,
-      items: [
-        {
-          title: "History",
-          url: "#",
-        },
-        {
-          title: "Starred",
-          url: "#",
-        },
-        {
-          title: "Settings",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Models",
-      url: "#",
-      icon: Bot,
-      items: [
-        {
-          title: "Genesis",
-          url: "#",
-        },
-        {
-          title: "Explorer",
-          url: "#",
-        },
-        {
-          title: "Quantum",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Documentation",
-      url: "#",
-      icon: BookOpen,
-      items: [
-        {
-          title: "Introduction",
-          url: "#",
-        },
-        {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Settings",
-      url: "#",
-      icon: Settings2,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
-      ],
-    },
-  ],
-  projects: [
-    {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: Map,
-    },
-  ],
-};
+import { useUser } from "@clerk/nextjs";
+import { usePathname, useRouter } from "next/navigation";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { state, isMobile } = useSidebar();
+  const { state } = useSidebar();
+  const { user } = useUser();
+
+  const data = {
+    user: {
+      name: user?.fullName || "",
+      email: user?.primaryEmailAddress?.emailAddress || "",
+      avatar: user?.imageUrl || null,
+    },
+
+    navMain: [
+      {
+        title: "Dashboard",
+        url: "/home/dashboard",
+        icon: LayoutDashboard,
+        isActive: true,
+      },
+      {
+        title: "Remarks",
+        url: "/home/remarks",
+        icon: Info,
+      },
+      {
+        title: "Request",
+        url: "/home/request",
+        icon: Plus,
+      },
+      {
+        title: "Applications",
+        url: "/home/applications",
+        icon: File,
+      },
+      {
+        title: "Notifications",
+        url: "/home/notifications",
+        icon: Megaphone,
+      },
+    ],
+  };
+  const pathName = usePathname();
+  const navigate = useRouter();
 
   return (
-    <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader className={cn("flex-row items-center justify-between p-4", state === "collapsed" && "justify-center")}>
-        {(state === "expanded" || isMobile) && (
-          <h1 className="font-semibold text-3xl text-primary">Vishnu!</h1>
+    <Sidebar collapsible="icon" {...props} className="border-none">
+      <SidebarHeader
+        className={cn(
+          "flex-row items-center justify-center p-6",
+          state === "collapsed" && "justify-center"
         )}
-        <span>
-          <SidebarTrigger className="text-primary" />
-        </span>
+      >
+        {/* <div className="bg-primary text-white rounded-full p-3 font-bold h-fit w-fit">
+          PM.
+        </div> */}
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
       </SidebarContent>
-      <SidebarFooter>
-        <NavUser user={data.user} />
+      <SidebarFooter className="flex items-center justify-center py-5">
+        <SidebarMenuButton
+          onClick={() => {
+            navigate.push("/home/settings");
+          }}
+          tooltip={"Settings"}
+          className={cn(
+            "hover:ring transition-colors rounded-xl active:bg-primary/50 active:text-white bg-white",
+            pathName === "/home/settings" &&
+              "bg-primary text-white ring-1 ring-inset",
+            "h-full w-full"
+          )}
+        >
+          <Settings2 />
+          <span>{"Settings"}</span>
+        </SidebarMenuButton>
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

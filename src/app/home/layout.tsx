@@ -9,7 +9,9 @@ const Layout = ({ children }: Props) => {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <SidebarInset>{children}</SidebarInset>
+      <SidebarInset className="overflow-hidden">
+        <div className="w-full h-full overflow-hidden p-3">{children}</div>
+      </SidebarInset>
     </SidebarProvider>
   );
 };

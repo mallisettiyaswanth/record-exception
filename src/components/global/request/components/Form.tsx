@@ -83,7 +83,6 @@ const RequestForm = (props: Props) => {
     );
   };
 
-  setCurrentStep(2);
 
   const form = useForm({
     resolver: zodResolver(getStepSchema(currentStep)),

@@ -34,7 +34,7 @@ const page = (props: Props) => {
           />
         </div>
         <div className="flex gap-3 items-center">
-          <div className="bg-white rounded-full p-1">
+          <div className="bg-white rounded-full p-1 z-50">
             <DropdownMenu>
               <DropdownMenuTrigger className="flex gap-3 items-center">
                 <Menu className="text-gray-600 h-5 w-5" />

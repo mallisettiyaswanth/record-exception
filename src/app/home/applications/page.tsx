@@ -1,3 +1,6 @@
+"use client";
+
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardFooter } from "@/components/ui/card";
@@ -8,7 +11,22 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { ArrowRight, ArrowRightLeft } from "lucide-react";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import {
+  ArrowRight,
+  ArrowRightLeft,
+  Check,
+  Cross,
+  CrossIcon,
+  X,
+} from "lucide-react";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 type Props = {};
@@ -27,11 +45,12 @@ const page = (props: Props) => {
 };
 
 const ApplicationCard = () => {
+  const router = useRouter();
   return (
     <Card className="rounded-xl shadow-sm cursor-pointer p-5 gap-8 flex flex-col group bg-primary/5 transition duration-300 hover:bg-primary/10">
       <div>
         <p className="text-xs text-blue-400">22pa1a1295</p>
-        <h1 className="font-semibold text-xl text-primary group-hover:text-blue-600">
+        <h1 className="font-medium text-xl text-primary group-hover:text-blue-600">
           Mallisetti Yaswanth
         </h1>
         <p className="text-sm text-blue-400">IT - Section A</p>
@@ -46,36 +65,18 @@ const ApplicationCard = () => {
             12/20/2000
           </Badge>
         </div>
-        <Dialog>
-          <DialogTrigger>
-            <span className=" inline-flex justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 self-end justify-self-end w-fit shadow-none rounded-2xl group-hover:bg-blue-500 group-hover:text-white  items-center bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-4 py-2">
-              Review
-              <ArrowRight className="transition-transform duration-300 group-hover:translate-x-2" />
-            </span>
-          </DialogTrigger>
-          <DialogContent className="max-w-full h-full">
-            <DialogHeader className="h-0 hidden">
-              <DialogTitle></DialogTitle>
-            </DialogHeader>
-            <ReviewApplicationDialog />
-          </DialogContent>
-        </Dialog>
+
+        <Button
+          onClick={() => router.push("/home/applications/1")}
+          className="self-end justify-self-end w-fit shadow-none rounded-2xl group-hover:bg-blue-500 group-hover:text-white  items-center bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-4 py-2"
+        >
+          Review
+          <ArrowRight className="transition-transform duration-300 group-hover:translate-x-2" />
+        </Button>
       </div>
     </Card>
   );
 };
 
-const ReviewApplicationDialog = () => {
-  return (
-    <div className="flex w-full h-full p-1 gap-5">
-      <div className="w-full h-full flex-1 p-3">
-        <h1 className="text-primary font-semibold text-4xl">
-          Permission title
-        </h1>
-      </div>
-      <div className="flex-1"></div>
-    </div>
-  );
-};
 
 export default page;

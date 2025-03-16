@@ -1,5 +1,6 @@
 "use client";
 
+// import VerticalContent from "@/components/global/stepper";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -49,11 +50,17 @@ const page = (props: Props) => {
       </header>
       <div className="flex w-full h-full p-1 gap-5">
         <div className="w-3/5 h-full p-3 flex flex-col gap-10">
-          <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Et alias,
-            culpa veritatis sapiente quae eius, laborum ad voluptate accusantium
-            dignissimos corrupti unde ullam delectus consectetur.
-          </p>
+          <div className="flex-1">
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Et
+              alias, culpa veritatis sapiente quae eius, laborum ad voluptate
+              accusantium dignissimos corrupti unde ullam delectus consectetur.
+            </p>
+          </div>
+          <div className="flex">
+            <div className="flex-1">sdvf</div>
+            <div className="flex-1">{/* <VerticalContent /> */}</div>
+          </div>
 
           <div className="flex flex-col gap-3">
             <header className="p-2 flex items-center justify-between">

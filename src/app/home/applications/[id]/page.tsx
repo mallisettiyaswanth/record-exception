@@ -20,8 +20,10 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import {
+  ArrowLeft,
   ArrowRight,
   Check,
+  ChevronLeft,
   Download,
   Eye,
   File,
@@ -30,14 +32,21 @@ import {
 } from "lucide-react";
 import React, { useState } from "react";
 import { ApplicationCard } from "../page";
+import { useRouter } from "next/navigation";
 
 type Props = {};
 
 const page = (props: Props) => {
+  const router = useRouter();
   return (
     <div className="flex w-full h-full overflow-hidden bg-white rounded-xl relative p-7 flex-col gap-5">
       <header className="w-full flex items-center justify-between sticky top-0">
-        <h1 className="text-xl font-medium text-primary">Permission title</h1>
+        <div className="flex items-center">
+          <button onClick={() => router.back()} className="p-0 h-8 w-8">
+            <ChevronLeft />
+          </button>
+          <h1 className="text-xl font-medium text-primary">Permission title</h1>
+        </div>
         <div className="flex gap-3">
           <Button className="rounded-full">
             <Check />

@@ -47,21 +47,21 @@ const page = (props: Props) => {
 export const ApplicationCard = () => {
   const router = useRouter();
   return (
-    <Card className="rounded-xl shadow-sm cursor-pointer p-5 gap-8 flex flex-col group bg-primary/5 transition duration-300 hover:bg-primary/10">
-      <div>
+    <Card className="rounded-xl shadow-sm cursor-pointer p-0 flex flex-col group transition duration-300 bg-white border-none overflow-hidden">
+      <div className="p-5 border-x border-t rounded-t-xl border-primary">
         <p className="text-xs text-blue-400">22pa1a1295</p>
         <h1 className="font-medium text-xl text-primary group-hover:text-blue-600">
           Mallisetti Yaswanth
         </h1>
         <p className="text-sm text-blue-400">IT - Section A</p>
       </div>
-      <div className="flex justify-between items-center gap-8">
+      <div className="flex justify-between items-center gap-8 bg-primary/5 w-full p-5">
         <div className="w-full bg-blue-100 rounded-2xl flex-1 h-full flex items-center p-1 gap-2">
-          <Badge className="flex-1 h-full bg-white rounded-2xl shadow-none text-blue-400 hover:bg-white">
+          <Badge className="flex-1 h-full bg-white rounded-2xl shadow-none text-blue-400 hover:bg-white justify-center">
             12/20/2000
           </Badge>
           <ArrowRightLeft className="h-4 w-4 text-blue-400" />
-          <Badge className="flex-1 h-full bg-white rounded-2xl shadow-none text-blue-400 hover:bg-white">
+          <Badge className="flex-1 h-full bg-white rounded-2xl shadow-none text-blue-400 hover:bg-white justify-center">
             12/20/2000
           </Badge>
         </div>

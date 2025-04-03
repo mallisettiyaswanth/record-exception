@@ -1,5 +1,6 @@
 "use client";
 
+import Analytics from "@/components/global/Analytics/page";
 import WelcomeBanner from "@/components/global/welcome-banner/page";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -95,10 +96,13 @@ const page = (props: Props) => {
         </div>
       </header>
       <div className="flex flex-col h-full w-full rounded-xl bg-white flex-1 overflow-hidden">
-        <WelcomeBanner />
+        {/* <WelcomeBanner /> */}
+        <Analytics />
       </div>
     </div>
   );
 };
 
 export default page;
+
+

@@ -29,12 +29,13 @@ import {
   X,
 } from "lucide-react";
 import React, { useState } from "react";
+import { ApplicationCard } from "../page";
 
 type Props = {};
 
 const page = (props: Props) => {
   return (
-    <div className="flex w-full h-full overflow-hidden bg-gray-50 rounded-xl relative p-7 flex-col gap-5">
+    <div className="flex w-full h-full overflow-hidden bg-white rounded-xl relative p-7 flex-col gap-5">
       <header className="w-full flex items-center justify-between sticky top-0">
         <h1 className="text-xl font-medium text-primary">Permission title</h1>
         <div className="flex gap-3">
@@ -51,22 +52,39 @@ const page = (props: Props) => {
       <div className="flex w-full h-full p-1 gap-5">
         <div className="w-3/5 h-full p-3 flex flex-col gap-10">
           <div className="flex-1">
-            <p>
+            <p className="text-gray-600 ">
               Lorem ipsum dolor sit amet consectetur, adipisicing elit. Et
               alias, culpa veritatis sapiente quae eius, laborum ad voluptate
               accusantium dignissimos corrupti unde ullam delectus consectetur.
             </p>
           </div>
-          <div className="flex">
-            <div className="flex-1">sdvf</div>
-            <div className="flex-1">{/* <VerticalContent /> */}</div>
+          <div className="flex text-sm text-gray-600">
+            <ul className="flex-[2] flex flex-col gap-3">
+              <li className="grid grid-cols-2">
+                <span>Section</span>
+                <span>IT - B</span>
+              </li>
+              <li className="grid grid-cols-2">
+                <span>Contact no</span>
+                <span>+91 9999999999</span>
+              </li>
+              <li className="grid grid-cols-2">
+                <span>Contact no</span>
+                <span>+91 9999999999</span>
+              </li>
+              <li className="grid grid-cols-2">
+                <span>Contact no</span>
+                <span>+91 9999999999</span>
+              </li>
+            </ul>
+            <div className="flex-1">Custom stepper</div>
           </div>
 
           <div className="flex flex-col gap-3">
             <header className="p-2 flex items-center justify-between">
               <h1>Applied Students</h1>
               <div className="flex items-center gap-3">
-                <Checkbox className="h-6 w-6 rounded-full" />
+                <Checkbox className="h-6 w-6 rounded-full border-gray-300 hover:border-primary transition-all data-[state=checked]:border-primary" />
               </div>
             </header>
 
@@ -101,8 +119,18 @@ const page = (props: Props) => {
             })}
           </div>
         </div>
-        <div className="w-2/5 bg-white rounded-lg shadow flex items-center justify-center">
-          No letter found
+        <div className="w-2/5 flex flex-col gap-10">
+          <div className="w-full bg-white rounded-xl border shadow-sm h-screen p-2">
+            No letter found
+          </div>
+          <div className="flex flex-col gap-5">
+            <h1>Previous Applications</h1>
+            <div className="flex flex-col gap-3">
+              {Array.from({ length: 3 }).map((_, index: number) => {
+                return <ApplicationCard key={index} />;
+              })}
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -114,7 +142,7 @@ export default page;
 const CustomSheet = () => {
   const [sheetOpen, setSheetOpen] = useState(false);
   return (
-    <div className="flex gap-3 items-center flex-col w-full rounded-3xl border bg-white p-5">
+    <div className="flex gap-3 items-center flex-col w-full rounded-3xl border bg-white p-5 shadow-sm">
       <div className="h-full w-full flex items-center justify-between gap-3">
         <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
           <SheetTrigger>
@@ -145,7 +173,7 @@ const CustomSheet = () => {
           </Badge>
         </div>
         <div className="flex items-center gap-3">
-          <Checkbox className="rounded-full h-6 w-6" />
+          <Checkbox className="rounded-full h-6 w-6 border-gray-300 hover:border-primary transition-all data-[state=checked]:border-primary" />
           <DropdownMenu>
             <DropdownMenuTrigger>
               <MoreVertical />

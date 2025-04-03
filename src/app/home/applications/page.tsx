@@ -44,7 +44,7 @@ const page = (props: Props) => {
   );
 };
 
-const ApplicationCard = () => {
+export const ApplicationCard = () => {
   const router = useRouter();
   return (
     <Card className="rounded-xl shadow-sm cursor-pointer p-5 gap-8 flex flex-col group bg-primary/5 transition duration-300 hover:bg-primary/10">

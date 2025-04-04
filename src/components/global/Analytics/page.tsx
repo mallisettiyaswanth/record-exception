@@ -74,7 +74,7 @@ const Analytics = () => {
         </div>
       </div>
       <div className="flex gap-5 px-5">
-        <div className="flex-1 rounded-xl shadow-sm p-5 bg-gradient-to-br from-violet-50 via-orange-50 to-pink-50 border-none">
+        <div className="flex-1 rounded-xl shadow-sm p-5 bg-gradient-to-br from-violet-50 via-purple-50 to-pink-50 border-none">
           <Component />
         </div>
       </div>

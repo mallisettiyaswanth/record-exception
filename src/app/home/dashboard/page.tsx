@@ -96,7 +96,7 @@ const page = (props: Props) => {
         </div>
       </header>
       <div className="flex flex-col h-full w-full rounded-xl bg-white flex-1 overflow-hidden">
-        {/* <WelcomeBanner /> */}
+        <WelcomeBanner />
         <Analytics />
       </div>
     </div>

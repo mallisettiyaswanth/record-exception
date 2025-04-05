@@ -6,7 +6,7 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ChevronDown } from "lucide-react";
+import { BarChart, ChevronDown } from "lucide-react";
 import React from "react";
 
 const Analytics = () => {
@@ -27,50 +27,52 @@ const Analytics = () => {
     },
   ];
   return (
-    <div className="p-5 flex flex-col gap-3">
-      <div className="p-5">
-        <h1 className="text-4xl font-semibold text-gray-400">Analytics</h1>
-      </div>
-      <div className="flex gap-3 px-5 justify-between items-center">
-        <div className="flex flex-col gap-2">
-          <span className="font-medium text-gray-600">Applications</span>
-          <div className="flex items-center gap-3">
-            <span className="font-bold text-5xl bg-gradient-to-r from-primary/70 to-primary bg-clip-text text-transparent">
-              523,456
-            </span>
-            <DropdownMenu dir="rtl">
-              <DropdownMenuTrigger>
-                <Badge className="rounded-full gap-1">
-                  {
-                    applicationCountTypes.find(
-                      (type) => type.value === applicationCountType
-                    )?.label
-                  }
-                  <ChevronDown className="h-5 w-5" />
-                </Badge>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="rounded-xl">
-                <DropdownMenuRadioGroup
-                  value={applicationCountType}
-                  onValueChange={setApplicationCountType}
-                >
-                  {applicationCountTypes.map((type) => (
-                    <DropdownMenuRadioItem
-                      key={type.value}
-                      value={type.value}
-                      className="capitalize rounded-xl justify-start"
-                    >
-                      {type.label}
-                    </DropdownMenuRadioItem>
-                  ))}
-                </DropdownMenuRadioGroup>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
+    <div className="p-5 flex flex-col gap-5">
+      <div className="flex flex-col gap-3">
+        <div className="p-5">
+          <h1 className="text-4xl font-semibold text-gray-400">Analytics</h1>
         </div>
-        <div className="flex gap-5">
-          <DoubleCard header="This week" count={100} />
-          <DoubleCard header="This month" count={400} />
+        <div className="flex gap-3 px-5 justify-between items-center">
+          <div className="flex flex-col gap-2">
+            <span className="font-medium text-gray-600">Applications</span>
+            <div className="flex items-center gap-3">
+              <span className="font-bold text-5xl bg-gradient-to-r from-primary/70 to-primary bg-clip-text text-transparent">
+                523,456
+              </span>
+              <DropdownMenu dir="rtl">
+                <DropdownMenuTrigger>
+                  <Badge className="rounded-full gap-1">
+                    {
+                      applicationCountTypes.find(
+                        (type) => type.value === applicationCountType
+                      )?.label
+                    }
+                    <ChevronDown className="h-5 w-5" />
+                  </Badge>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="rounded-xl">
+                  <DropdownMenuRadioGroup
+                    value={applicationCountType}
+                    onValueChange={setApplicationCountType}
+                  >
+                    {applicationCountTypes.map((type) => (
+                      <DropdownMenuRadioItem
+                        key={type.value}
+                        value={type.value}
+                        className="capitalize rounded-xl justify-start"
+                      >
+                        {type.label}
+                      </DropdownMenuRadioItem>
+                    ))}
+                  </DropdownMenuRadioGroup>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          </div>
+          <div className="flex gap-5">
+            <DoubleCard header="This week" count={100} />
+            <DoubleCard header="This month" count={400} />
+          </div>
         </div>
       </div>
       <div className="flex gap-5 px-5">
@@ -98,13 +100,6 @@ const DoubleCard = ({ header, count }: { header: string; count: number }) => {
 
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import {
   ChartConfig,
   ChartContainer,
@@ -248,11 +243,14 @@ export function Component() {
   return (
     <div className="flex flex-col gap-5">
       <div className="flex items-center gap-2 space-y-0 sm:flex-row">
-        <div className="grid flex-1 text-center sm:text-left">
-          <h1 className="font-semibold text-lg">Area Chart - Interactive</h1>
-          <span className="text-sm text-muted-foreground">
-            Showing total visitors for the last 3 months
-          </span>
+        <div className="w-fit flex items-center gap-3">
+          <BarChart className="w-10 h-10 text-primary" />
+          <div className="grid flex-1 text-center sm:text-left">
+            <h1 className="font-semibold text-lg">Area Chart - Interactive</h1>
+            <span className="text-sm text-muted-foreground">
+              Showing total visitors for the last 3 months
+            </span>
+          </div>
         </div>
         <Select value={timeRange} onValueChange={setTimeRange}>
           <SelectTrigger
@@ -306,7 +304,7 @@ export function Component() {
                 />
               </linearGradient>
             </defs>
-            
+
             <XAxis
               dataKey="date"
               tickLine={false}

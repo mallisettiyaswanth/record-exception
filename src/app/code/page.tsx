@@ -24,6 +24,8 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
+import { FaPython } from "react-icons/fa";
+import { AiOutlineJavaScript } from "react-icons/ai";
 
 type Props = {};
 
@@ -112,9 +114,19 @@ const CodingPage = (props: Props) => {
           <ResizablePanel className="pl-2 flex">
             <div className="flex-[3] flex flex-col gap-3">
               <ResizablePanelGroup direction="vertical" className="flex-1 flex">
-                <ResizablePanel minSize={40} maxSize={100} defaultSize={70} className="mb-3">
+                <ResizablePanel
+                  minSize={40}
+                  maxSize={100}
+                  defaultSize={70}
+                  className="mb-3"
+                >
                   <div className="border-gray-700 bg-zinc-900 rounded-md flex-1 border h-full">
-                    First
+                    <div className="flex items-center justify-between border-b border-gray-700">
+                      <span className="border-r border-gray-700 border-t border-t-indigo-700 px-3 py-2 font-medium text-sm flex items-center gap-2 text-gray-300">
+                        <AiOutlineJavaScript className="w-4 h-4" />
+                        Code Editor
+                      </span>
+                    </div>
                   </div>
                 </ResizablePanel>
                 <ResizableHandle
